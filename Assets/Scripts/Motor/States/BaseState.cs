@@ -22,7 +22,8 @@ public class BaseState : MonoBehaviour
 
     public virtual void Transition()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+            motor.ChangeState(GetComponent<State_GhostMode>());
     }
 
     public virtual Vector3 ProcessMotion(Vector3 input)

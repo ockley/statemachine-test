@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class State_Walking : BaseState
 {
-    [SerializeField] private float runSpeed = 5.0f;
+    [SerializeField] private float runSpeed = 10.0f;
 
     public override void Construct()
     {
@@ -21,6 +21,8 @@ public class State_Walking : BaseState
 
     public override void Transition()
     {
+        base.Transition();
+
         if (!motor.isGrounded)
             motor.ChangeState(GetComponent<State_Falling>());
 

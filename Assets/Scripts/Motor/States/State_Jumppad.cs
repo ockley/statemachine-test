@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class State_Jumping : BaseState
+public class State_Jumppad : BaseState
 {
     [SerializeField] private float airVelocity = 7.0f;
-    [SerializeField] private float jumpForce = 10.0f;
+    [SerializeField] private float jumpForce = 30.0f;
 
     public override void Construct()
     {

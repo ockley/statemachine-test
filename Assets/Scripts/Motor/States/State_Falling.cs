@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class State_Falling : BaseState
 {
-    [SerializeField] private float airVelocity = 3.0f;
+    [SerializeField] private float airVelocity = 7.0f;
     [SerializeField] private float terminalVelocity = 24.0f;
 
+    public override void Construct()
+    {
+        motor.anim?.SetTrigger("Fall");
+    }
     public override Vector3 ProcessMotion(Vector3 input)
     {
         input.x *= airVelocity;
@@ -18,6 +22,8 @@ public class State_Falling : BaseState
 
     public override void Transition()
     {
+        base.Transition();
+
         if (motor.isGrounded)
             motor.ChangeState(GetComponent<State_Walking>());
     }

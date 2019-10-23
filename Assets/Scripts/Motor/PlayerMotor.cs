@@ -7,6 +7,7 @@ public class PlayerMotor : MonoBehaviour
     public float gravity = 15.0f;
     public float verticalVelocity;
     public bool isGrounded;
+    public Animator anim;
 
     private CharacterController controller;
     private BaseState currentState;
@@ -15,6 +16,7 @@ public class PlayerMotor : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         currentState = GetComponent<State_Walking>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -29,12 +31,20 @@ public class PlayerMotor : MonoBehaviour
 
         // TODO Ask our state to define our movement this frame
         moveDelta = currentState.ProcessMotion(input);
-        
+
+        if(moveDelta.x != 0)
+            transform.localScale = (moveDelta.x < 0) ? new Vector3(-1, 1, 1) : new Vector3(1, 1, 1);
+
         // Apply vertical velocity to move delta
         moveDelta.y = verticalVelocity;
 
         // Move player
         controller.Move(moveDelta * Time.deltaTime);
+
+        // Assign some value to Animation State Machine
+        anim?.SetBool("IsGrounded", isGrounded);
+        anim?.SetFloat("Speed", Mathf.Abs(moveDelta.x));
+
 
         // Check if we have to change state
         currentState.Transition();
