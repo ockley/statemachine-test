@@ -1,18 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BaseState : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    protected PlayerMotor motor;
+
+
+    private void Awake()
     {
-        
+        motor = GetComponent<PlayerMotor>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void Construct()
     {
-        
+
+    }
+
+    public virtual void Destruct()
+    {
+
+    }
+
+    public virtual void Transition()
+    {
+
+    }
+
+    public virtual Vector3 ProcessMotion(Vector3 input)
+    {
+        return input;
     }
 }
